@@ -12,16 +12,24 @@
 	<h1>Kredyt</h1>
 
 	<h:form id="bla">
-  		Kwota: <h:inputText value="#{calcCredit.kwota}" />
-		<br />
-  		Lat: <h:inputText value="#{calcCredit.lat}" />
-		<br />
-		Oprocentowanie: <h:inputText value="#{calcCredit.oprocentowanie}" />
-		<br />
-		<h:messages id="msg" />
-
-		<h:commandButton value="Oblicz" action="#{calcCredit.calc()}"/>
+<h:panelGrid id="grid" columns="3" cellpadding="5">
+		
+		<p:outputLabel for="x" value="Kwota:"/>
+  		<p:inputText id="x" value="#{calcCredit.x}" required="true" requiredMessage="Nie wpisano kwoty"/>
+  		<p:message for="x"/>
+  		
+  		<p:outputLabel for="y" value="Lat:"/>
+  		<p:inputText id="y" value="#{calcCredit.y}" required="true" requiredMessage="Nie wpisano lat"/>
+  		<p:message for="y"/>
+  		
+  		<p:outputLabel for="z" value="Oprocentowanie:"/>
+		<p:inputText id="z" value="#{calcCredit.z}" required="true" requiredMessage="Nie wpisano oprocentowania"/>
+		<p:message for="z"/>
+		
+		<p:commandButton value="Oblicz" action="#{calcCredit.calc()}" update="@form"/>
 		<br />	
+		</h:panelGrid>
+		<p:growl id="msg" />
 	</h:form>
 
 </h:body>

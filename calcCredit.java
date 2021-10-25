@@ -3,6 +3,7 @@ package com.jsfcourse.calc;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
@@ -10,37 +11,41 @@ import javax.faces.context.FacesContext;
 @RequestScoped
 
 
-public class calcCredit {
-	private String kwota;                                     
-	private String lat;
-	private String oprocentowanie;
+public class creditCalc {
+	private String x;
+	private String y;
+	private String z;
 	private Double wynik;
 
 	@Inject
 	FacesContext ctx;
 
-	public String getKwota() {
-		return kwota;
+	public String getX() {
+		return x;
 	}
 
-	public void setKwota(String kwota) {
-		this.kwota = kwota;
+	public void setX(String x) {
+		this.x = x;
 	}
 
-	public String getLat() {
-		return lat;
+	public String getY() {
+		return y;
 	}
 
-	public void setLat(String lat) {
-		this.lat = lat;
+	public void setY(String y) {
+		this.y = y;
 	}
 
-	public String getOprocentowanie() {
-		return oprocentowanie;
+	public String getZ() {
+		return z;
 	}
 
-	public void setOprocentowanie(String oprocentowanie) {
-		this.oprocentowanie = oprocentowanie;
+	public void setZ(String z) {
+		this.z = z;
+	}
+
+	public Double getWynik() {
+		return wynik;
 	}
 
 	public void setWynik(Double wynik) {
@@ -49,26 +54,27 @@ public class calcCredit {
 
 	public boolean doTheMath() {
 		try {
-			double kwota = Double.parseDouble(this.kwota);
-			double lat = Double.parseDouble(this.lat);
-			double oprocentowanie = Double.parseDouble(this.oprocentowanie);
+			double x = Double.parseDouble(this.x);
+			double y = Double.parseDouble(this.y);
+			double z = Double.parseDouble(this.z);
 
-			wynik = kwota * lat / oprocentowanie;
+			wynik = (x/(y*12))*(z/100+1);
 
-			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Operacja wykonana pomyslnie", null));
+			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Operacja wykonana poprawnie", null));
 			return true;
 		} catch (Exception e) {
 			ctx.addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Blad podczas przetwarzania parametrow", null));
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Błędne parametry", null));
 			return false;
 		}
 	}
+
+	// Go to "showresult" if ok
 	public String calc() {
 		if (doTheMath()) {
 			return "showresult";
 		}
 		return null;
 	}
-
 
 }
