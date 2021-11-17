@@ -1,5 +1,4 @@
 package com.jsfcourse.calc;
-
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
@@ -68,8 +67,6 @@ public class creditCalc {
 			return false;
 		}
 	}
-
-	// Go to "showresult" if ok
 	public String calc() {
 		if (doTheMath()) {
 			return "showresult";

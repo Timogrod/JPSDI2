@@ -3,34 +3,40 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<title>Kredyt</title>
+	<title>Kalkulator kredytowy</title>
 </h:head>
 <h:body>
-
-	<h1>Kredyt</h1>
-
+	<p:panel header="Kredyt" style="margin: 1em auto" toggleable="true" closable="true" toggleSpeed="300">
 	<h:form id="bla">
-<h:panelGrid id="grid" columns="3" cellpadding="5">
+		<h:panelGrid id="grid" columns="3" cellpadding="5">
 		
 		<p:outputLabel for="x" value="Kwota:"/>
-  		<p:inputText id="x" value="#{calcCredit.x}" required="true" requiredMessage="Nie wpisano kwoty"/>
+  		<p:inputText id="x" value="#{creditCalc.x}" required="true" requiredMessage="Nie wprowadzono kwoty" converterMessage="Wartością musi być liczba" validatorMessage="Wartość większa niż 100">
+  		<f:validateDoubleRange minimum="100.0"/>
+  		</p:inputText>
   		<p:message for="x"/>
   		
   		<p:outputLabel for="y" value="Lat:"/>
-  		<p:inputText id="y" value="#{calcCredit.y}" required="true" requiredMessage="Nie wpisano lat"/>
+  		<p:inputText id="y" value="#{creditCalc.y}" required="true" requiredMessage="Nie wprowadzono ilości lat" converterMessage="Wartość musi być liczba całkowitą" validatorMessage="Wartość musi być większa niż 1 i mniejsza niż 25">
+  		<f:validateLongRange minimum="1" maximum="25"/>
+  		</p:inputText>
   		<p:message for="y"/>
   		
   		<p:outputLabel for="z" value="Oprocentowanie:"/>
-		<p:inputText id="z" value="#{calcCredit.z}" required="true" requiredMessage="Nie wpisano oprocentowania"/>
+		<p:inputText id="z" value="#{creditCalc.z}" required="true" requiredMessage="Nie wprowadzono wysokosci oprocentowania" converterMessage="Wartość musi być liczba całkowitą" validatorMessage="Wartość musi być większa od 1 i mniejsza niż 100">
+		<f:validateLongRange minimum="1" maximum="100"/>
+		</p:inputText>
 		<p:message for="z"/>
 		
-		<p:commandButton value="Oblicz" action="#{calcCredit.calc()}" update="@form"/>
+		<p:commandButton value="Oblicz" action="#{creditCalc.calc()}" update="@form"/>
 		<br />	
 		</h:panelGrid>
 		<p:growl id="msg" />
 	</h:form>
-
+	</p:panel>
+	
 </h:body>
 </html>
